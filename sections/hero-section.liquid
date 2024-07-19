@@ -1,1 +1,98 @@
 <h1>Sero Section</h1>
+
+
+{%- style -%}
+  #about-us-{{section.id}}{
+    padding-top:{{section.settings.padding_top}}px; 
+    padding-bottom:{{section.settings.padding_bottom}}px;
+    background-color: {{ section.settings.custom_bg_color }}
+  }
+  #title-{{section.id}} {
+    font-size:{{ section.settings.title_font_size }}px;
+    color:{{ section.settings.text_color }};
+    font-weight:bold;
+  }
+  #content-{{ section.id }} {
+    font-size:{{ section.settings.content_font_size }}px;
+    color:{{ section.settings.text_color }}
+  }
+
+@media only screen and (max-width:768px){
+
+  #title-{{section.id}} {font-size:28px;}
+  #content-{{ section.id }} {font-size:16px;}
+  #about-us-{{section.id}}{
+    padding-top:10px; 
+    padding-bottom:10px;
+  }
+}
+{%- endstyle -%}
+
+<div id="about-us-{{ section.id }}" class="relative max-w-7xl mx-auto">
+  <div class="flex flex-wrap ">
+    <div class="w-full px-2 md:px-0 lg:w-5/12 flex items-center">
+      <div class="hero-content px-2">
+        {% if section.settings.title %}
+          <h2 class="mb-3"  id="title-{{ section.id }}">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description %}
+
+          <div class="mb-8"  id="content-{{ section.id }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+        <ul class="flex flex-wrap items-center gap-5">
+          {% if section.settings.button_label %}
+            <li>
+              <a href="{{ section.settings.button_url }}" class="inline-flex items-center justify-center rounded-lg primary-button tracking-wider min-w-32">
+                {{ section.settings.button_label }}
+              </a>
+            </li>
+          {% endif %}
+          {% if section.settings.button_label_1 %}
+            <li>
+              <a href="{{ section.settings.button_url_1 }}" class="inline-flex items-center justify-center rounded-lg secondary-button tracking-wider min-w-32">
+                {{ section.settings.button_label_1 }}
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+
+      </div>
+    </div>
+    <div class="hidden px-2 md:px-0 lg:block lg:w-1/12"></div>
+    <div class="w-full px-2 md:px-0 lg:w-6/12">
+      <div class="lg:ml-auto lg:text-right">
+        <div class="relative z-10 inline-block pt-11 lg:pt-0">
+          <img
+            src="{{section.settings.main_image | img_url: 'master'}}"
+            alt="hero"
+            class="max-w-full lg:ml-auto rounded-md" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{%- schema -%}
+  {
+    "name": "Hero Section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "custom_bg_color",
+        "label": "Section Background Color",
+        "default": "#fff"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Section"
+      }
+    ]
+  }
+{%- endschema -%}
